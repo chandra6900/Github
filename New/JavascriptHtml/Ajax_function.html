@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+   <head> 
+      <title> Change to Upper Case </title> 
+       
+       <script type="text/javascript">
+           function convertoupper(ev) {
+               var v = document.getElementById("mytext").value;
+               document.getElementById("changed_text").innerHTML = v;
+               if (v.trim() != "hello") {
+                   ev.preventDefault();
+               }               
+           }
+           function hello(ev)
+           {
+               var d = document.getElementById("changed_text");
+               d.innerHTML = "HEllo";
+               ev.preventDefault();               
+           }
+           
+       </script>
+   </head>
+   
+   <body>
+      <h3> Conversion to Upper Case </h3>
+      
+      <form runat="server">
+         <input  name="mytext" id="mytext" type="text" />
+         <input  id="button1" type="submit" value="Enter..." onclick="convertoupper(event);"/>         
+         <hr />
+         <h3> Results: </h3>
+         <span id="changed_text"></span>
+          
+          <button id="button2"  value="hellobutton"  onclick="hello(event);">My button</button>
+         <button id="button3" value="ajaxrequest" onclick="ajaxReq(event);">ajaxbutton</button>
+          <div id="hellodiv"></div>
+       <script type="text/javascript">
+          
+          function ajaxReq(ev)
+          {
+              ev.preventDefault();
+              alert("defaultprevented")
+               var xhttp = new XMLHttpRequest();
+               xhttp.onreadystatechange = function () {
+                   if (this.readyState == 4 && this.status == 200) {
+                       document.getElementById("hellodiv").innerHTML = this.responseText;
+                   }
+               };
+               xhttp.open("GET", "ajax_info.txt", true);
+               xhttp.send();
+           }
+           </script>
+      </form>
+      
+   </body>
+   
+</html>
