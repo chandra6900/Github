@@ -1,0 +1,8 @@
+C:\Users\chan\source\repos\tempWCF\Entities\bin\Debug\netstandard2.0\TempType.deps.json
+C:\Users\chan\source\repos\tempWCF\Entities\bin\Debug\netstandard2.0\TempType.dll
+C:\Users\chan\source\repos\tempWCF\Entities\bin\Debug\netstandard2.0\TempType.pdb
+C:\Users\chan\source\repos\tempWCF\Entities\obj\Debug\netstandard2.0\TempType.csproj.CoreCompileInputs.cache
+C:\Users\chan\source\repos\tempWCF\Entities\obj\Debug\netstandard2.0\TempType.AssemblyInfoInputs.cache
+C:\Users\chan\source\repos\tempWCF\Entities\obj\Debug\netstandard2.0\TempType.AssemblyInfo.cs
+C:\Users\chan\source\repos\tempWCF\Entities\obj\Debug\netstandard2.0\TempType.dll
+C:\Users\chan\source\repos\tempWCF\Entities\obj\Debug\netstandard2.0\TempType.pdb

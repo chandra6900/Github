@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Register";
+}
+
+@using(Html.BeginForm()){
+    <ol>
+        <li>
+            @Html.Label("Bank")
+            @Html.TextBox("BankName")
+        </li>
+        <li>
+            @Html.Label("City")
+            @Html.TextBox("cityName")
+        </li>
+        <li>
+            @Html.Label("Address")
+            @Html.TextBox("Address")
+        </li>
+        <li>
+            <input type="submit" value="save" />
+        </li>
+    </ol>
+}

@@ -1,0 +1,28 @@
+﻿@using Bankdata.Models
+
+@model List<Bankdata.Models.BankRecord>
+
+@{
+    ViewBag.Title = "LogIn";
+}
+
+
+<table id="customers">
+    <tr>
+        <th id="tblhead" colspan="3">BankData</th>
+    </tr>
+    <tr>
+        <th >BankName</th>
+        <th >city</th>
+        <th >Address</th>
+    </tr>
+   
+    @foreach(BankRecord rcd in Model)
+    {
+        <tr>
+            <td>@rcd.BankName</td>
+            <td>@rcd.City</td>
+            <td>@rcd.Address</td>
+        </tr>
+    }   
+</table>

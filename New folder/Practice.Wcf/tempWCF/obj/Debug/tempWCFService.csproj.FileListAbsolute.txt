@@ -1,0 +1,10 @@
+C:\Users\chan\source\repos\tempWCF\tempWCF\obj\Debug\tempWCFService.csprojAssemblyReference.cache
+C:\Users\chan\source\repos\tempWCF\tempWCF\obj\Debug\tempWCFService.csproj.CoreCompileInputs.cache
+C:\Users\chan\source\repos\tempWCF\tempWCF\obj\Debug\tempWCF.dll
+C:\Users\chan\source\repos\tempWCF\tempWCF\obj\Debug\tempWCF.pdb
+C:\Users\chan\source\repos\tempWCF\tempWCF\bin\tempWCF.dll.config
+C:\Users\chan\source\repos\tempWCF\tempWCF\bin\tempWCF.dll
+C:\Users\chan\source\repos\tempWCF\tempWCF\bin\tempWCF.pdb
+C:\Users\chan\source\repos\tempWCF\tempWCF\bin\TempType.dll
+C:\Users\chan\source\repos\tempWCF\tempWCF\bin\TempType.pdb
+C:\Users\chan\source\repos\tempWCF\tempWCF\obj\Debug\tempWCFService.csproj.CopyComplete
