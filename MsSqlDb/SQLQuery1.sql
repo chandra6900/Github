@@ -1,0 +1,1 @@
+﻿insert into tblCity (city,BankName,BankAddress) Values('ind4','Bank4','Add4');

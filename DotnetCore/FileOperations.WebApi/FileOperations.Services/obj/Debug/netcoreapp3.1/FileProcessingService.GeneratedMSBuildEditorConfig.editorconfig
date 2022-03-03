@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = FileProcessingService
+build_property.ProjectDir = D:\Dotnet\FileOperations\FileService\

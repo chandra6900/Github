@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "69766363-cbfd-4727-b9db-ee83eec6179e": {
+      "ProjectGuid": "69766363-cbfd-4727-b9db-ee83eec6179e",
+      "DisplayName": "FileOperations",
+      "ColorIndex": 0
+    },
+    "7525261b-6b0b-4ce7-96a9-89cdf7dd5fdb": {
+      "ProjectGuid": "7525261b-6b0b-4ce7-96a9-89cdf7dd5fdb",
+      "DisplayName": "FileOperations.Services",
+      "ColorIndex": 1
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "1f860b76-e394-4fed-98b0-8bf3c3c65bee": {
+      "ProjectGuid": "1f860b76-e394-4fed-98b0-8bf3c3c65bee",
+      "DisplayName": "FileOperations.Test",
+      "ColorIndex": 2
+    },
+    "04dcb202-0642-4678-a5df-b15a865a9260": {
+      "ProjectGuid": "04dcb202-0642-4678-a5df-b15a865a9260",
+      "DisplayName": "FileOperationsTests",
+      "ColorIndex": 3
+    },
+    "9f6a1da0-8cdd-404a-9a3c-726c6e3e8de2": {
+      "ProjectGuid": "9f6a1da0-8cdd-404a-9a3c-726c6e3e8de2",
+      "DisplayName": "TestProject1",
+      "ColorIndex": 4
+    },
+    "6d1dcab3-0a3c-458b-b8ce-b1a86bb9ca83": {
+      "ProjectGuid": "6d1dcab3-0a3c-458b-b8ce-b1a86bb9ca83",
+      "DisplayName": "FileOperations.Test",
+      "ColorIndex": 5
+    }
+  },
+  "NextColorIndex": 6
+}
