@@ -1,5 +1,0 @@
-D:\Dotnet\FileOperations\FileOperations.Service\obj\Debug\netcoreapp3.1\FileOperations.Service.csproj.AssemblyReference.cache
-D:\Dotnet\FileOperations\FileOperations.Service\obj\Debug\netcoreapp3.1\FileOperations.Service.GeneratedMSBuildEditorConfig.editorconfig
-D:\Dotnet\FileOperations\FileOperations.Service\obj\Debug\netcoreapp3.1\FileOperations.Service.AssemblyInfoInputs.cache
-D:\Dotnet\FileOperations\FileOperations.Service\obj\Debug\netcoreapp3.1\FileOperations.Service.AssemblyInfo.cs
-D:\Dotnet\FileOperations\FileOperations.Service\obj\Debug\netcoreapp3.1\FileOperations.Service.csproj.CoreCompileInputs.cache
