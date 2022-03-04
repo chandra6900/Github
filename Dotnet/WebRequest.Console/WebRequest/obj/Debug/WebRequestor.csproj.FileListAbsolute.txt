@@ -1,7 +1,8 @@
-c:\users\ramudu\documents\visual studio 2013\tmpProjects\WebRequest\WebRequest\bin\Debug\WebRequest.exe
-c:\users\ramudu\documents\visual studio 2013\tmpProjects\WebRequest\WebRequest\bin\Debug\WebRequest.pdb
-c:\users\ramudu\documents\visual studio 2013\tmpProjects\WebRequest\WebRequest\obj\Debug\WebRequestor.csprojResolveAssemblyReference.cache
-c:\users\ramudu\documents\visual studio 2013\tmpProjects\WebRequest\WebRequest\obj\Debug\WebRequest.exe
-c:\users\ramudu\documents\visual studio 2013\tmpProjects\WebRequest\WebRequest\obj\Debug\WebRequest.pdb
-C:\Users\ramudu\Documents\Visual Studio 2013\Projects\WebRequest\WebRequest\obj\Debug\WebRequest.exe
-C:\Users\ramudu\Documents\Visual Studio 2013\Projects\WebRequest\WebRequest\obj\Debug\WebRequest.pdb
+E:\Work\Github\Dotnet\WebRequest.Console\WebRequest\bin\Debug\WebRequest.exe.config
+E:\Work\Github\Dotnet\WebRequest.Console\WebRequest\bin\Debug\WebRequest.exe
+E:\Work\Github\Dotnet\WebRequest.Console\WebRequest\bin\Debug\WebRequest.pdb
+E:\Work\Github\Dotnet\WebRequest.Console\WebRequest\obj\Debug\WebRequestor.csproj.AssemblyReference.cache
+E:\Work\Github\Dotnet\WebRequest.Console\WebRequest\obj\Debug\WebRequestor.csproj.SuggestedBindingRedirects.cache
+E:\Work\Github\Dotnet\WebRequest.Console\WebRequest\obj\Debug\WebRequestor.csproj.CoreCompileInputs.cache
+E:\Work\Github\Dotnet\WebRequest.Console\WebRequest\obj\Debug\WebRequest.exe
+E:\Work\Github\Dotnet\WebRequest.Console\WebRequest\obj\Debug\WebRequest.pdb
