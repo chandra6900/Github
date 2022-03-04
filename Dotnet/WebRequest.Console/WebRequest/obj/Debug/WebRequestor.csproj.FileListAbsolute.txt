@@ -1,8 +1,0 @@
-E:\Work\Github\Dotnet\WebRequest.Console\WebRequest\bin\Debug\WebRequest.exe.config
-E:\Work\Github\Dotnet\WebRequest.Console\WebRequest\bin\Debug\WebRequest.exe
-E:\Work\Github\Dotnet\WebRequest.Console\WebRequest\bin\Debug\WebRequest.pdb
-E:\Work\Github\Dotnet\WebRequest.Console\WebRequest\obj\Debug\WebRequestor.csproj.AssemblyReference.cache
-E:\Work\Github\Dotnet\WebRequest.Console\WebRequest\obj\Debug\WebRequestor.csproj.SuggestedBindingRedirects.cache
-E:\Work\Github\Dotnet\WebRequest.Console\WebRequest\obj\Debug\WebRequestor.csproj.CoreCompileInputs.cache
-E:\Work\Github\Dotnet\WebRequest.Console\WebRequest\obj\Debug\WebRequest.exe
-E:\Work\Github\Dotnet\WebRequest.Console\WebRequest\obj\Debug\WebRequest.pdb
