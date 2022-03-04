@@ -1,9 +1,0 @@
-C:\Users\chan\source\repos\tempWCF\Entities\bin\Debug\netstandard2.0\tempWCF.Entities.deps.json
-C:\Users\chan\source\repos\tempWCF\Entities\bin\Debug\netstandard2.0\tempWCF.Entities.dll
-C:\Users\chan\source\repos\tempWCF\Entities\bin\Debug\netstandard2.0\tempWCF.Entities.pdb
-C:\Users\chan\source\repos\tempWCF\Entities\obj\Debug\netstandard2.0\tempWCF.Entities.csproj.CoreCompileInputs.cache
-C:\Users\chan\source\repos\tempWCF\Entities\obj\Debug\netstandard2.0\tempWCF.Entities.AssemblyInfoInputs.cache
-C:\Users\chan\source\repos\tempWCF\Entities\obj\Debug\netstandard2.0\tempWCF.Entities.AssemblyInfo.cs
-C:\Users\chan\source\repos\tempWCF\Entities\obj\Debug\netstandard2.0\tempWCF.Entities.dll
-C:\Users\chan\source\repos\tempWCF\Entities\obj\Debug\netstandard2.0\tempWCF.Entities.pdb
-C:\Users\chan\source\repos\tempWCF\Entities\obj\Debug\netstandard2.0\tempWCF.Entities.csprojAssemblyReference.cache
