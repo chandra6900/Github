@@ -1,6 +1,0 @@
-D:\Repos\dotnet\CallBackEventWebFormsApp\CallBackEventWebFormsApp\bin\CallBackEventWebFormsApp.dll.config
-D:\Repos\dotnet\CallBackEventWebFormsApp\CallBackEventWebFormsApp\bin\CallBackEventWebFormsApp.dll
-D:\Repos\dotnet\CallBackEventWebFormsApp\CallBackEventWebFormsApp\bin\CallBackEventWebFormsApp.pdb
-D:\Repos\dotnet\CallBackEventWebFormsApp\CallBackEventWebFormsApp\obj\Debug\CallBackEventWebFormsApp.csproj.CoreCompileInputs.cache
-D:\Repos\dotnet\CallBackEventWebFormsApp\CallBackEventWebFormsApp\obj\Debug\CallBackEventWebFormsApp.dll
-D:\Repos\dotnet\CallBackEventWebFormsApp\CallBackEventWebFormsApp\obj\Debug\CallBackEventWebFormsApp.pdb
