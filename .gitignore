@@ -96,3 +96,4 @@ tempWCF/Entities/obj/tempWCF.Entities.csproj.nuget.g.props
 /DotnetCore/UpdateFile.FileOperations.WebApi/FileOperations.Test/obj
 /DotnetCore/UpdateFile.FileOperations.WebApi/FileOperations/FileOperations.csproj.user
 /Dotnet/WebRequest.Console/WebRequest/bin/Debug
+/Dotnet/WebRequest.WebForms/WebRequest/obj/Debug
