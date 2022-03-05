@@ -7,6 +7,8 @@ using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using FileOperations.Common;
 using FileOperations.Common.Constants;
+using System.IO;
+using System.Net;
 
 namespace FileOperations.Controllers
 {
@@ -20,13 +22,12 @@ namespace FileOperations.Controllers
         private readonly string _rootFolderPath;
         public FileController(IConfiguration configuration, ILogger<FileController> logger, IFileOperation fileOperation)
         {
-            
+
             _configuration = configuration;
             _logger = logger;
             _fileOperation = fileOperation;
             _rootFolderPath = configuration.GetValue<string>(ConfigKeys.RootFolderPath);
         }
-
 
         [HttpPost]
         [Route("UploadFile")]
@@ -50,7 +51,7 @@ namespace FileOperations.Controllers
             else
             {
                 bool uploaded = await _fileOperation.UploadFile(filePath, file);
-                if(uploaded)
+                if (uploaded)
                 {
                     _logger.LogInformation("File upload completed for the file:{0}", file.FileName);
                     return StatusCode(StatusCodes.Status200OK, new { status = "Ok", message = "File upload completed" });
@@ -106,5 +107,44 @@ namespace FileOperations.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("CallUploadFile")]
+        public string CallUploadFile(string filePath, string url)
+        {
+            string responseText;
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+                    //WebClient throws error if response status is other than 200, strange
+                    byte[] response = client.UploadFile(url, filePath);
+                    //To create stream from bytes
+                    using (var memoryStream = new MemoryStream(response))
+                    {   //To Read text from stream
+                        using (var reader = new StreamReader(memoryStream))
+                        {
+                            responseText = reader.ReadToEnd();
+                        }
+                    }
+                }
+            }
+            catch (WebException exception)
+            {
+                using (var reader = new StreamReader(exception.Response.GetResponseStream()))
+                {
+                    responseText = reader.ReadToEnd();
+                }
+            }
+            return responseText;
+        }
+
+        [HttpGet]
+        [Route("CallUploadFileBytes")]
+        public IActionResult CallUploadFileBytes(string filePath)
+        {
+            FileInfo fileInfo = new FileInfo(filePath);
+            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+            return Ok();
+        }
     }
 }
