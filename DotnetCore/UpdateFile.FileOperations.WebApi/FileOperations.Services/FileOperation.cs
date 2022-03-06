@@ -48,7 +48,7 @@ namespace FileOperations.Services
             catch (Exception ex)
             {
                 _logger.LogError($"Error while uploading the file. {ex.Message}");
-                _logger.LogDebug($"Stack Trace: {ex.StackTrace}");
+                _logger.LogDebug(ex,$"Stack Trace: {ex.StackTrace}");
                 return false;
             }
             return true;

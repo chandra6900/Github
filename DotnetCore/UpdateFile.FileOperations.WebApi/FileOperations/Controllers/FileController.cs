@@ -124,9 +124,6 @@ namespace FileOperations.Controllers
             string fileName = fileJson.fileName;
             string fileBytesBase64String = fileJson.fileByteArray;
             byte[] byteArray = Convert.FromBase64String(fileBytesBase64String);
-            //var stream = new MemoryStream();
-            //await Request.Body.CopyToAsync(fileBytes);
-            //var byteArray = stream.ToArray();
 
             if (string.IsNullOrEmpty(fileName))
             {
@@ -228,7 +225,10 @@ namespace FileOperations.Controllers
             HttpContent content = new StringContent(fileJsonString);
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
             var result = await client.PostAsync(url, content);
-            return Ok();
+            if (result.IsSuccessStatusCode)
+                return Ok();
+            else
+                return Forbid();
         }
     }
 }
