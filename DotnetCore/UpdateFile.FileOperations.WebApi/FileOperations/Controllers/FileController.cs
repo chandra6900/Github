@@ -108,8 +108,8 @@ namespace FileOperations.Controllers
         }
 
         [HttpGet]
-        [Route("CallUploadFile")]
-        public string CallUploadFile(string filePath, string url)
+        [Route("CallUploadFileUsingWebClient")]
+        public string CallUploadFileUsingWebClient(string filePath, string url)
         {
             string responseText;
             try
