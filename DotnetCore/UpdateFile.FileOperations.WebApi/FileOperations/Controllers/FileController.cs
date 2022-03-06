@@ -11,6 +11,9 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System;
+using FileOperations.Models;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace FileOperations.Controllers
 {
@@ -24,7 +27,6 @@ namespace FileOperations.Controllers
         private readonly string _rootFolderPath;
         public FileController(IConfiguration configuration, ILogger<FileController> logger, IFileOperation fileOperation)
         {
-
             _configuration = configuration;
             _logger = logger;
             _fileOperation = fileOperation;
@@ -114,6 +116,55 @@ namespace FileOperations.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("UploadFileBytesJson")]
+        public async Task<IActionResult> UploadFileBytesJson([FromBody] FileJson fileJson)
+        {
+            _logger.LogInformation("UploadFileBytes method called");
+            string fileName = fileJson.fileName;
+            string fileBytesBase64String = fileJson.fileByteArray;
+            byte[] byteArray = Convert.FromBase64String(fileBytesBase64String);
+            //var stream = new MemoryStream();
+            //await Request.Body.CopyToAsync(fileBytes);
+            //var byteArray = stream.ToArray();
+
+            if (string.IsNullOrEmpty(fileName))
+            {
+                _logger.LogWarning("File name is empty");
+                return StatusCode(StatusCodes.Status400BadRequest, new { status = "BadRequest", message = "File name is empty" });
+            }
+
+            if (byteArray is null)
+            {
+                _logger.LogWarning("File data is empty");
+                return StatusCode(StatusCodes.Status400BadRequest, new { status = "BadRequest", message = "File data is empty" });
+            }
+
+            _logger.LogInformation("File upload started for the file:{0}", fileName);
+            string filePath = $"{_rootFolderPath}\\{fileName}";
+            bool fileExist = _fileOperation.FileExist(filePath);
+
+            if (fileExist)
+            {
+                _logger.LogWarning("File '{0}' already exists", fileName);
+                return StatusCode(StatusCodes.Status400BadRequest, new { status = "BadRequest", message = "File already exists" });
+            }
+            else
+            {
+                bool uploaded = await _fileOperation.UploadFileByteArray(byteArray, filePath);
+                if (uploaded)
+                {
+                    _logger.LogInformation("File upload completed for the file:{0}", fileName);
+                    return StatusCode(StatusCodes.Status200OK, new { status = "Ok", message = "File upload completed" });
+                }
+                else
+                {
+                    _logger.LogError("Erro in file upload for the file:{0}", fileName);
+                    return StatusCode(StatusCodes.Status500InternalServerError, new { status = "Error", message = "Internal server error" });
+                }
+            }
+        }
+
         [HttpGet]
         [Route("CallUploadFileUsingWebClient")]
         public string CallUploadFileUsingWebClient(string filePath, string url)
@@ -158,6 +209,24 @@ namespace FileOperations.Controllers
             client.BaseAddress = new Uri(url);
             HttpContent content = new ByteArrayContent(fileBytes);
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+            HttpResponseMessage httpResponseMessage = await client.PostAsync(url, content);          
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("CallUploadFileBytesJsonUsingHttpClient")]
+        public async Task<IActionResult> CallUploadFileBytesJsonUsingHttpClient(string filePath, string url)
+        {
+            FileInfo fileInfo = new FileInfo(filePath);
+            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+            FileJson fileJson = new FileJson();
+            fileJson.fileName = fileInfo.Name;
+            fileJson.fileByteArray = Convert.ToBase64String(fileBytes);
+            string fileJsonString=JsonSerializer.Serialize<FileJson>(fileJson);
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(url);
+            HttpContent content = new StringContent(fileJsonString);
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
             var result = await client.PostAsync(url, content);
             return Ok();
         }
