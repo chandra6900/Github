@@ -9,6 +9,8 @@ using FileOperations.Common;
 using FileOperations.Common.Constants;
 using System.IO;
 using System.Net;
+using System.Net.Http;
+using System;
 
 namespace FileOperations.Controllers
 {
@@ -66,10 +68,15 @@ namespace FileOperations.Controllers
 
         [HttpPost]
         [Route("UploadFileBytes")]
-        public async Task<IActionResult> UploadFileBytes([FromBody] byte[] byteArray, [FromHeader] string fileName)
+        public async Task<IActionResult> UploadFileBytes([FromHeader] string fileName)
         {
             _logger.LogInformation("UploadFileBytes method called");
-
+            var stream = new MemoryStream();
+            await Request.Body.CopyToAsync(stream);
+            var byteArray = stream.ToArray();
+            //Below commented code is not working
+            //var byteArray = new byte[Request.ContentLength.Value];
+            //await Request.Body.ReadAsync(byteArray);
             if (string.IsNullOrEmpty(fileName))
             {
                 _logger.LogWarning("File name is empty");
@@ -93,7 +100,7 @@ namespace FileOperations.Controllers
             }
             else
             {
-                bool uploaded = await _fileOperation.UploadFileByteArray(byteArray, fileName);
+                bool uploaded = await _fileOperation.UploadFileByteArray(byteArray, filePath);
                 if (uploaded)
                 {
                     _logger.LogInformation("File upload completed for the file:{0}", fileName);
@@ -139,11 +146,19 @@ namespace FileOperations.Controllers
         }
 
         [HttpGet]
-        [Route("CallUploadFileBytes")]
-        public IActionResult CallUploadFileBytes(string filePath)
+        [Route("CallUploadFileBytesUsingHttpClient")]
+        public async Task<IActionResult> CallUploadFileBytesUsingHttpClient(string filePath, string url)
         {
             FileInfo fileInfo = new FileInfo(filePath);
             byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+            //For checking purpose enable below
+            //await System.IO.File.WriteAllBytesAsync("C:\\Temp\\" + fileInfo.Name, fileBytes);
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Add("fileName", fileInfo.Name);
+            client.BaseAddress = new Uri(url);
+            HttpContent content = new ByteArrayContent(fileBytes);
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+            var result = await client.PostAsync(url, content);
             return Ok();
         }
     }
