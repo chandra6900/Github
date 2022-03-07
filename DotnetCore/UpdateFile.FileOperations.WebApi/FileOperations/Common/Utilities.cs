@@ -12,7 +12,15 @@ namespace FileOperations.Common
         }
         public static byte[] DecodeFromBase64String(string base64String)
         {
-            return Convert.FromBase64String(base64String);
+            try
+            {
+                return Convert.FromBase64String(base64String);
+            }
+            catch
+            { 
+            
+            }
+            return null;
         }
     }
 }

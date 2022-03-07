@@ -39,32 +39,17 @@ namespace FileOperations.Controllers
             _logger.LogInformation("UploadFile method called");
             if (file is null)
             {
-                _logger.LogWarning("File is empty");
-                return StatusCode(StatusCodes.Status400BadRequest, new { status = "BadRequest", message = "File is empty" });
+                return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "File is empty");
             }
-            _logger.LogInformation("File upload started for the file:{0}", file.FileName);
-            string filePath = $"{_rootFolderPath}\\{file.FileName}";
-            bool fileExist = Utilities.FileExist(filePath);
+            else if (Utilities.FileExist($"{_rootFolderPath}\\{file.FileName}"))
+            {
+                return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "File already exists");
+            }
 
-            if (fileExist)
-            {
-                _logger.LogWarning("File '{0}' already exists", file.FileName);
-                return StatusCode(StatusCodes.Status400BadRequest, new { status = "BadRequest", message = "File already exists" });
-            }
-            else
-            {
-                bool uploaded = await _fileOperation.UploadFile(filePath, file);
-                if (uploaded)
-                {
-                    _logger.LogInformation("File upload completed for the file:{0}", file.FileName);
-                    return StatusCode(StatusCodes.Status200OK, new { status = "Ok", message = "File upload completed" });
-                }
-                else
-                {
-                    _logger.LogError("Erro in file upload for the file:{0}", file.FileName);
-                    return StatusCode(StatusCodes.Status500InternalServerError, new { status = "Error", message = "Internal server error" });
-                }
-            }
+            _logger.LogInformation("File upload started for the file:{0}", file.FileName);
+            bool uploaded = await _fileOperation.UploadFile($"{_rootFolderPath}\\{file.FileName}", file);
+            return ProcessResult(uploaded);
+
         }
 
         [HttpPost]
@@ -75,44 +60,28 @@ namespace FileOperations.Controllers
             var stream = new MemoryStream();
             await Request.Body.CopyToAsync(stream);
             var byteArray = stream.ToArray();
+
             //Below commented code is not working
             //var byteArray = new byte[Request.ContentLength.Value];
             //await Request.Body.ReadAsync(byteArray);
+
             if (string.IsNullOrEmpty(fileName))
             {
-                _logger.LogWarning("File name is empty");
-                return StatusCode(StatusCodes.Status400BadRequest, new { status = "BadRequest", message = "File name is empty" });
+                return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "File name is empty");
             }
-
-            if (byteArray is null)
+            else if (Utilities.FileExist($"{_rootFolderPath}\\{fileName}"))
             {
-                _logger.LogWarning("File data is empty");
-                return StatusCode(StatusCodes.Status400BadRequest, new { status = "BadRequest", message = "File data is empty" });
+                return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "File already exists");
+            }
+            else if (byteArray is null)
+            {
+                return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "File data is empty");
             }
 
             _logger.LogInformation("File upload started for the file:{0}", fileName);
-            string filePath = $"{_rootFolderPath}\\{fileName}";
-            bool fileExist = Utilities.FileExist(filePath);
-
-            if (fileExist)
-            {
-                _logger.LogWarning("File '{0}' already exists", fileName);
-                return StatusCode(StatusCodes.Status400BadRequest, new { status = "BadRequest", message = "File already exists" });
-            }
-            else
-            {
-                bool uploaded = await _fileOperation.UploadFileByteArray(filePath, byteArray);
-                if (uploaded)
-                {
-                    _logger.LogInformation("File upload completed for the file:{0}", fileName);
-                    return StatusCode(StatusCodes.Status200OK, new { status = "Ok", message = "File upload completed" });
-                }
-                else
-                {
-                    _logger.LogError("Erro in file upload for the file:{0}", fileName);
-                    return StatusCode(StatusCodes.Status500InternalServerError, new { status = "Error", message = "Internal server error" });
-                }
-            }
+            bool uploaded = await _fileOperation.UploadFileByteArray($"{_rootFolderPath}\\{fileName}", byteArray);
+            return ProcessResult(uploaded);
+            
         }
 
         [HttpPost]
@@ -121,41 +90,47 @@ namespace FileOperations.Controllers
         {
             _logger.LogInformation("UploadFileBytes method called");
 
-            if (jsonFileModel is null || string.IsNullOrWhiteSpace(jsonFileModel.fileByteArray))
+            if (string.IsNullOrEmpty(jsonFileModel.fileName))
             {
-                _logger.LogWarning("File data is empty");
-                return StatusCode(StatusCodes.Status400BadRequest, new { status = "BadRequest", message = "File data is empty" });
+                return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "File name is empty");
             }
-            else if(string.IsNullOrEmpty(jsonFileModel.fileName))
+            else if(Utilities.FileExist($"{_rootFolderPath}\\{jsonFileModel.fileName}"))
             {
-                _logger.LogWarning("File name is empty");
-                return StatusCode(StatusCodes.Status400BadRequest, new { status = "BadRequest", message = "File name is empty" });
+                return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "File already exists");
+            }
+            else if (jsonFileModel is null || string.IsNullOrWhiteSpace(jsonFileModel.fileByteArray))
+            {
+                return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "File data is empty");
+            }
+                            
+            byte[] byteArray = Utilities.DecodeFromBase64String(jsonFileModel.fileByteArray);
+            if (byteArray == null)
+            {
+                return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "Bad data received");
             }
 
             _logger.LogInformation("File upload started for the file:{0}", jsonFileModel.fileName);
-            string filePath = $"{_rootFolderPath}\\{jsonFileModel.fileName}";
-            bool fileExist = Utilities.FileExist(filePath);
+            bool uploaded = await _fileOperation.UploadFileByteArray($"{_rootFolderPath}\\{jsonFileModel.fileName}", byteArray);
+            return ProcessResult(uploaded);
 
-            if (fileExist)
+        }
+
+        private IActionResult ProcessResult(bool uploaded)
+        {
+            if (uploaded)
             {
-                _logger.LogWarning("File '{0}' already exists", jsonFileModel.fileName);
-                return StatusCode(StatusCodes.Status400BadRequest, new { status = "BadRequest", message = "File already exists" });
+                return CreateLogResult(LogLevel.Information, StatusCodes.Status200OK, "Ok", "File upload completed");
             }
             else
             {
-                byte[] byteArray = Utilities.DecodeFromBase64String(jsonFileModel.fileByteArray);
-                bool uploaded = await _fileOperation.UploadFileByteArray(filePath,byteArray);
-                if (uploaded)
-                {
-                    _logger.LogInformation("File upload completed for the file:{0}", jsonFileModel.fileName);
-                    return StatusCode(StatusCodes.Status200OK, new { status = "Ok", message = "File upload completed" });
-                }
-                else
-                {
-                    _logger.LogError("Erro in file upload for the file:{0}", jsonFileModel.fileName);
-                    return StatusCode(StatusCodes.Status500InternalServerError, new { status = "Error", message = "Internal server error" });
-                }
+                return CreateLogResult(LogLevel.Error, StatusCodes.Status500InternalServerError, "Error", "Erro in file upload");
             }
+        }
+
+        private IActionResult CreateLogResult(LogLevel loglevel,int statusCode, string status, string message)
+        {
+            _logger.Log(loglevel, message);
+            return StatusCode(statusCode, new { status = status, message = message });
         }
 
         [HttpGet]

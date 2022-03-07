@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Threading. Tasks;
+using System.Threading.Tasks;
 
 namespace FileOperations.Services
 {
@@ -43,8 +43,7 @@ namespace FileOperations.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error while uploading the file. {ex.Message}");
-                _logger.LogDebug(ex,$"Stack Trace: {ex.StackTrace}");
+                _logger.LogError(ex,$"Error while uploading the file. {ex.Message}");
                 return false;
             }
             return true;
