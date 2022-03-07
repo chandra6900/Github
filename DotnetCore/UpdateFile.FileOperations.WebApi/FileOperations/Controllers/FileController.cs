@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using FileOperations.Common;
-using FileOperations.Common.Constants;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -45,7 +44,7 @@ namespace FileOperations.Controllers
             }
             _logger.LogInformation("File upload started for the file:{0}", file.FileName);
             string filePath = $"{_rootFolderPath}\\{file.FileName}";
-            bool fileExist = _fileOperation.FileExist(filePath);
+            bool fileExist = Utilities.FileExist(filePath);
 
             if (fileExist)
             {
@@ -93,7 +92,7 @@ namespace FileOperations.Controllers
 
             _logger.LogInformation("File upload started for the file:{0}", fileName);
             string filePath = $"{_rootFolderPath}\\{fileName}";
-            bool fileExist = _fileOperation.FileExist(filePath);
+            bool fileExist = Utilities.FileExist(filePath);
 
             if (fileExist)
             {
@@ -102,7 +101,7 @@ namespace FileOperations.Controllers
             }
             else
             {
-                bool uploaded = await _fileOperation.UploadFileByteArray(byteArray, filePath);
+                bool uploaded = await _fileOperation.UploadFileByteArray(filePath, byteArray);
                 if (uploaded)
                 {
                     _logger.LogInformation("File upload completed for the file:{0}", fileName);
@@ -118,45 +117,42 @@ namespace FileOperations.Controllers
 
         [HttpPost]
         [Route("UploadFileBytesJson")]
-        public async Task<IActionResult> UploadFileBytesJson([FromBody] FileJson fileJson)
+        public async Task<IActionResult> UploadFileBytesJson([FromBody] JsonFileModel jsonFileModel)
         {
             _logger.LogInformation("UploadFileBytes method called");
-            string fileName = fileJson.fileName;
-            string fileBytesBase64String = fileJson.fileByteArray;
-            byte[] byteArray = Convert.FromBase64String(fileBytesBase64String);
 
-            if (string.IsNullOrEmpty(fileName))
+            if (jsonFileModel is null || string.IsNullOrWhiteSpace(jsonFileModel.fileByteArray))
+            {
+                _logger.LogWarning("File data is empty");
+                return StatusCode(StatusCodes.Status400BadRequest, new { status = "BadRequest", message = "File data is empty" });
+            }
+            else if(string.IsNullOrEmpty(jsonFileModel.fileName))
             {
                 _logger.LogWarning("File name is empty");
                 return StatusCode(StatusCodes.Status400BadRequest, new { status = "BadRequest", message = "File name is empty" });
             }
 
-            if (byteArray is null)
-            {
-                _logger.LogWarning("File data is empty");
-                return StatusCode(StatusCodes.Status400BadRequest, new { status = "BadRequest", message = "File data is empty" });
-            }
-
-            _logger.LogInformation("File upload started for the file:{0}", fileName);
-            string filePath = $"{_rootFolderPath}\\{fileName}";
-            bool fileExist = _fileOperation.FileExist(filePath);
+            _logger.LogInformation("File upload started for the file:{0}", jsonFileModel.fileName);
+            string filePath = $"{_rootFolderPath}\\{jsonFileModel.fileName}";
+            bool fileExist = Utilities.FileExist(filePath);
 
             if (fileExist)
             {
-                _logger.LogWarning("File '{0}' already exists", fileName);
+                _logger.LogWarning("File '{0}' already exists", jsonFileModel.fileName);
                 return StatusCode(StatusCodes.Status400BadRequest, new { status = "BadRequest", message = "File already exists" });
             }
             else
             {
-                bool uploaded = await _fileOperation.UploadFileByteArray(byteArray, filePath);
+                byte[] byteArray = Utilities.DecodeFromBase64String(jsonFileModel.fileByteArray);
+                bool uploaded = await _fileOperation.UploadFileByteArray(filePath,byteArray);
                 if (uploaded)
                 {
-                    _logger.LogInformation("File upload completed for the file:{0}", fileName);
+                    _logger.LogInformation("File upload completed for the file:{0}", jsonFileModel.fileName);
                     return StatusCode(StatusCodes.Status200OK, new { status = "Ok", message = "File upload completed" });
                 }
                 else
                 {
-                    _logger.LogError("Erro in file upload for the file:{0}", fileName);
+                    _logger.LogError("Erro in file upload for the file:{0}", jsonFileModel.fileName);
                     return StatusCode(StatusCodes.Status500InternalServerError, new { status = "Error", message = "Internal server error" });
                 }
             }
@@ -216,10 +212,10 @@ namespace FileOperations.Controllers
         {
             FileInfo fileInfo = new FileInfo(filePath);
             byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
-            FileJson fileJson = new FileJson();
+            JsonFileModel fileJson = new JsonFileModel();
             fileJson.fileName = fileInfo.Name;
             fileJson.fileByteArray = Convert.ToBase64String(fileBytes);
-            string fileJsonString=JsonSerializer.Serialize<FileJson>(fileJson);
+            string fileJsonString=JsonSerializer.Serialize<JsonFileModel>(fileJson);
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(url);
             HttpContent content = new StringContent(fileJsonString);
@@ -228,7 +224,7 @@ namespace FileOperations.Controllers
             if (result.IsSuccessStatusCode)
                 return Ok();
             else
-                return Forbid();
+                return BadRequest();
         }
     }
 }

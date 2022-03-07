@@ -1,4 +1,4 @@
-﻿namespace FileOperations.Common.Constants
+﻿namespace FileOperations.Common
 {
 
     public class ConfigKeys

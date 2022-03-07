@@ -17,10 +17,6 @@ namespace FileOperations.Services
             _logger = logger;
         }
 
-        public bool FileExist(string filePath)
-        {
-            return File.Exists(filePath);
-        }
         public async Task<bool> UploadFile(string filePath, IFormFile file)
         {
             try
@@ -39,7 +35,7 @@ namespace FileOperations.Services
             return true;
         }
 
-        public async Task<bool> UploadFileByteArray(byte[] byteArray, string filePath)
+        public async Task<bool> UploadFileByteArray(string filePath, byte[] byteArray)
         {
             try
             {
