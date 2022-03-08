@@ -36,7 +36,7 @@ namespace FileOperations.Controllers
         [Route("UploadFile")]
         public async Task<IActionResult> UploadFile(IFormFile file)
         {
-            _logger.LogInformation("UploadFile method called");
+            _logger.LogDebug("UploadFile method called");
             if (file is null)
             {
                 return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "File is empty");
@@ -46,9 +46,11 @@ namespace FileOperations.Controllers
                 return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "File already exists");
             }
 
-            _logger.LogInformation("File upload started for the file:{0}", file.FileName);
+            _logger.LogDebug("File upload started");
             bool uploaded = await _fileOperation.UploadFile($"{_rootFolderPath}\\{file.FileName}", file);
-            return ProcessResult(uploaded);
+            IActionResult processResult = ProcessResult(uploaded);
+            _logger.LogDebug("UploadFile method call completed");
+            return processResult;
 
         }
 
@@ -56,7 +58,7 @@ namespace FileOperations.Controllers
         [Route("UploadFileBytes")]
         public async Task<IActionResult> UploadFileBytes([FromHeader] string fileName)
         {
-            _logger.LogInformation("UploadFileBytes method called");
+            _logger.LogDebug("UploadFileBytes method called");
             var stream = new MemoryStream();
             await Request.Body.CopyToAsync(stream);
             var byteArray = stream.ToArray();
@@ -78,9 +80,11 @@ namespace FileOperations.Controllers
                 return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "File data is empty");
             }
 
-            _logger.LogInformation("File upload started for the file:{0}", fileName);
+            _logger.LogDebug("File upload started");
             bool uploaded = await _fileOperation.UploadFileByteArray($"{_rootFolderPath}\\{fileName}", byteArray);
-            return ProcessResult(uploaded);
+            IActionResult processResult = ProcessResult(uploaded);
+            _logger.LogDebug("UploadFileBytes method call completed");
+            return processResult;
             
         }
 
@@ -88,7 +92,7 @@ namespace FileOperations.Controllers
         [Route("UploadFileBytesJson")]
         public async Task<IActionResult> UploadFileBytesJson([FromBody] JsonFileModel jsonFileModel)
         {
-            _logger.LogInformation("UploadFileBytes method called");
+            _logger.LogDebug("UploadFileBytesJson method called");
 
             if (string.IsNullOrEmpty(jsonFileModel.fileName))
             {
@@ -109,9 +113,11 @@ namespace FileOperations.Controllers
                 return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "Bad data received");
             }
 
-            _logger.LogInformation("File upload started for the file:{0}", jsonFileModel.fileName);
+            _logger.LogDebug("File upload started");
             bool uploaded = await _fileOperation.UploadFileByteArray($"{_rootFolderPath}\\{jsonFileModel.fileName}", byteArray);
-            return ProcessResult(uploaded);
+            IActionResult processResult = ProcessResult(uploaded);
+            _logger.LogDebug("UploadFileBytesJson method call completed");
+            return processResult;
 
         }
 
