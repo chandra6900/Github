@@ -37,7 +37,7 @@ namespace FileOperations.Controllers
         public async Task<IActionResult> UploadFile(IFormFile file)
         {
             _logger.LogDebug("UploadFile method called");
-            IActionResult processResult = ErrorResult("Internal Server Error");
+            IActionResult processResult;
 
             if (file is null)
                 processResult = BadRequestResult("File is empty");
@@ -63,7 +63,7 @@ namespace FileOperations.Controllers
         public async Task<IActionResult> UploadFileBytes([FromHeader] string fileName)
         {
             _logger.LogDebug("UploadFileBytes method called");
-            IActionResult processResult = ErrorResult("Internal Server Error");
+            IActionResult processResult;
 
             var stream = new MemoryStream();
             await Request.Body.CopyToAsync(stream);
@@ -99,7 +99,7 @@ namespace FileOperations.Controllers
         public async Task<IActionResult> UploadFileBytesJson([FromBody] JsonFileModel jsonFileModel)
         {
             _logger.LogDebug("UploadFileBytesJson method called");
-            IActionResult processResult = ErrorResult("Internal Server Error");
+            IActionResult processResult;
 
 
             if (jsonFileModel is null)
