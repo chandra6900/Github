@@ -37,21 +37,24 @@ namespace FileOperations.Controllers
         public async Task<IActionResult> UploadFile(IFormFile file)
         {
             _logger.LogDebug("UploadFile method called");
+            IActionResult processResult = ErrorResult("Internal Server Error");
+
             if (file is null)
             {
-                return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "File is empty");
+                processResult = BadRequestResult("File is empty");
             }
             else if (Utilities.FileExist($"{_rootFolderPath}\\{file.FileName}"))
             {
-                return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "File already exists");
+                processResult = BadRequestResult($"File {file.FileName} already exists");
             }
-
-            _logger.LogDebug("File upload started");
-            bool uploaded = await _fileOperation.UploadFile($"{_rootFolderPath}\\{file.FileName}", file);
-            IActionResult processResult = ProcessResult(uploaded);
+            else
+            {
+                _logger.LogDebug($"File upload started for {file.FileName}");
+                bool uploaded = await _fileOperation.UploadFile($"{_rootFolderPath}\\{file.FileName}", file);
+                processResult = ProcessResult(uploaded);
+            }
             _logger.LogDebug("UploadFile method call completed");
             return processResult;
-
         }
 
         [HttpPost]
@@ -59,6 +62,8 @@ namespace FileOperations.Controllers
         public async Task<IActionResult> UploadFileBytes([FromHeader] string fileName)
         {
             _logger.LogDebug("UploadFileBytes method called");
+            IActionResult processResult = ErrorResult("Internal Server Error");
+
             var stream = new MemoryStream();
             await Request.Body.CopyToAsync(stream);
             var byteArray = stream.ToArray();
@@ -69,23 +74,24 @@ namespace FileOperations.Controllers
 
             if (string.IsNullOrEmpty(fileName))
             {
-                return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "File name is empty");
+                processResult = BadRequestResult("File name is empty");
             }
             else if (Utilities.FileExist($"{_rootFolderPath}\\{fileName}"))
             {
-                return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "File already exists");
+                processResult = BadRequestResult($"File {fileName} already exists");
             }
             else if (byteArray is null)
             {
-                return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "File data is empty");
+                processResult = BadRequestResult("File data is empty");
             }
-
-            _logger.LogDebug("File upload started");
-            bool uploaded = await _fileOperation.UploadFileByteArray($"{_rootFolderPath}\\{fileName}", byteArray);
-            IActionResult processResult = ProcessResult(uploaded);
+            else
+            {
+                _logger.LogDebug($"File upload started for {fileName}");
+                bool uploaded = await _fileOperation.UploadFileByteArray($"{_rootFolderPath}\\{fileName}", byteArray);
+                processResult = ProcessResult(uploaded);
+            }
             _logger.LogDebug("UploadFileBytes method call completed");
-            return processResult;
-            
+            return processResult;       
         }
 
         [HttpPost]
@@ -93,44 +99,70 @@ namespace FileOperations.Controllers
         public async Task<IActionResult> UploadFileBytesJson([FromBody] JsonFileModel jsonFileModel)
         {
             _logger.LogDebug("UploadFileBytesJson method called");
-
-            if (string.IsNullOrEmpty(jsonFileModel.fileName))
+            IActionResult processResult = ErrorResult("Internal Server Error");
+            if(jsonFileModel is null)
             {
-                return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "File name is empty");
+                processResult = BadRequestResult("Received empty json input");
             }
-            else if(Utilities.FileExist($"{_rootFolderPath}\\{jsonFileModel.fileName}"))
+            else if (string.IsNullOrEmpty(jsonFileModel.fileName))
             {
-                return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "File already exists");
+                processResult = BadRequestResult("File name is empty");
             }
-            else if (jsonFileModel is null || string.IsNullOrWhiteSpace(jsonFileModel.fileByteArray))
+            else if(jsonFileModel.fileName.Contains('.')==false || jsonFileModel.fileName.IndexOfAny(Path.GetInvalidFileNameChars())>0)
             {
-                return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "File data is empty");
+                processResult = BadRequestResult("Invalid file name");
             }
-                            
-            byte[] byteArray = Utilities.DecodeFromBase64String(jsonFileModel.fileByteArray);
-            if (byteArray == null)
+            else if (Utilities.FileExist($"{_rootFolderPath}\\{jsonFileModel.fileName}"))
             {
-                return CreateLogResult(LogLevel.Warning, StatusCodes.Status400BadRequest, "BadRequest", "Bad data received");
+                processResult = BadRequestResult($"File {jsonFileModel.fileName} already exists");
             }
-
-            _logger.LogDebug("File upload started");
-            bool uploaded = await _fileOperation.UploadFileByteArray($"{_rootFolderPath}\\{jsonFileModel.fileName}", byteArray);
-            IActionResult processResult = ProcessResult(uploaded);
+            else if (string.IsNullOrWhiteSpace(jsonFileModel.fileByteArray))
+            {
+                processResult = BadRequestResult("File data is empty");
+            }
+            else
+            {
+                byte[] byteArray = Utilities.DecodeFromBase64String(jsonFileModel.fileByteArray);
+                if (byteArray == null)
+                {
+                    processResult = BadRequestResult("Bad data received");
+                }
+                else
+                {
+                    _logger.LogDebug($"File upload started for {jsonFileModel.fileName}");
+                    bool uploaded = await _fileOperation.UploadFileByteArray($"{_rootFolderPath}\\{jsonFileModel.fileName}", byteArray);
+                    processResult = ProcessResult(uploaded);
+                }
+            }
             _logger.LogDebug("UploadFileBytesJson method call completed");
             return processResult;
-
         }
 
         private IActionResult ProcessResult(bool uploaded)
         {
             if (uploaded)
             {
-                return CreateLogResult(LogLevel.Information, StatusCodes.Status200OK, "Ok", "File upload completed");
+                return OkResult("File upload completed");
             }
             else
             {
-                return CreateLogResult(LogLevel.Error, StatusCodes.Status500InternalServerError, "Error", "Erro in file upload");
+                return ErrorResult("Internal Server Error");
             }
+        }
+
+        private IActionResult OkResult(string message)
+        {
+            return CreateLogResult(LogLevel.Information, StatusCodes.Status200OK, "Ok", message);
+        }
+
+        private IActionResult BadRequestResult(string message)
+        {
+            return CreateLogResult(LogLevel.Error, StatusCodes.Status200OK, "Error", message);
+        }
+
+        private IActionResult ErrorResult(string message)
+        {
+            return CreateLogResult(LogLevel.Error, StatusCodes.Status500InternalServerError, "Error", message);
         }
 
         private IActionResult CreateLogResult(LogLevel loglevel,int statusCode, string status, string message)
