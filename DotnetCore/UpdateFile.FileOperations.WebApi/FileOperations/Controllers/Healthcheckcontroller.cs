@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace FileOperations.Controllers
 {
+    [Route("")]
     [Route("[Controller]")]
     [ApiController]
     public class Healthcheckcontroller : ControllerBase
     {
         const string HealthCheckSuccess = "Health Check Successful";
-        const string AuthChecksuccess = "Auth working";
 
         [HttpGet]
         [Route("")]
@@ -21,13 +21,6 @@ namespace FileOperations.Controllers
         public ActionResult<string> Get()
         {
             return HealthCheckSuccess;
-        }
-        [HttpGet]
-        [Route("Auth")]
-        [Authorize]
-        public ActionResult<string> TetAuth()
-        {
-            return AuthChecksuccess;
         }
     }
 }

@@ -28,6 +28,7 @@ namespace FileOperations
         {
             services.AddSingleton<IFileOperation, FileOperation>();
             services.AddControllers();
+            services.AddSwaggerDocument(configure => configure.Title = "File Operations API");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,11 +39,14 @@ namespace FileOperations
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthorization();
+           // app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

@@ -210,8 +210,8 @@ namespace FileOperations.Controllers
             client.BaseAddress = new Uri(url);
             HttpContent content = new ByteArrayContent(fileBytes);
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
-            HttpResponseMessage httpResponseMessage = await client.PostAsync(url, content);          
-            return Ok();
+            var result = await client.PostAsync(url, content);          
+            return Ok(result);
         }
 
         [HttpGet]
@@ -230,9 +230,9 @@ namespace FileOperations.Controllers
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
             var result = await client.PostAsync(url, content);
             if (result.IsSuccessStatusCode)
-                return Ok();
+                return Ok(result);
             else
-                return BadRequest();
+                return Ok(result);
         }
     }
 }
