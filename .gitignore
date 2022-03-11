@@ -97,3 +97,6 @@ tempWCF/Entities/obj/tempWCF.Entities.csproj.nuget.g.props
 /DotnetCore/UpdateFile.FileOperations.WebApi/FileOperations/FileOperations.csproj.user
 /Dotnet/WebRequest.Console/WebRequest/bin/Debug
 /Dotnet/WebRequest.WebForms/WebRequest/obj/Debug
+/DotnetCore/NSwag.Swagger.WebApi/.vs/Swagger
+/DotnetCore/NSwag.Swagger.WebApi/Swagger/bin/Debug/netcoreapp3.1
+/DotnetCore/NSwag.Swagger.WebApi/Swagger/obj
