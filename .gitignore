@@ -100,3 +100,6 @@ tempWCF/Entities/obj/tempWCF.Entities.csproj.nuget.g.props
 /DotnetCore/NSwag.Swagger.WebApi/.vs/Swagger
 /DotnetCore/NSwag.Swagger.WebApi/Swagger/bin/Debug/netcoreapp3.1
 /DotnetCore/NSwag.Swagger.WebApi/Swagger/obj
+/DotnetCore/NLog.Logging/.vs/Logging
+/DotnetCore/NLog.Logging/Logging/bin/Debug/netcoreapp3.1
+/DotnetCore/NLog.Logging/Logging/obj
