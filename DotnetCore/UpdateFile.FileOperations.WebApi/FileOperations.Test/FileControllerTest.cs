@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Moq;
 using System.IO;
+using FileOperations.Models;
 
 namespace FileOperations.Test
 {
@@ -27,8 +28,7 @@ namespace FileOperations.Test
             Assert.IsAssignableFrom<IHost>(Program.CreateHostBuilder(new List<string> { }.ToArray()).Build());
             _configuration = host.Services.GetService<IConfiguration>();
             _logger = host.Services.GetService<ILogger<FileController>>();
-            _fileOperation = host.Services.GetService<IFileOperation>();
-           
+            _fileOperation = host.Services.GetService<IFileOperation>();          
         }
 
         [Fact]
@@ -48,6 +48,15 @@ namespace FileOperations.Test
             var file = fileMock.Object;
             var controller = new FileController(_configuration,_logger, _fileOperation);
             var response = controller.UploadFile(file);
+            var result = Assert.IsType<ObjectResult>(response.Result);
+        }
+
+        [Fact]
+        public void UploadFileBytesJson()
+        {
+            var jsonFileModel= new JsonFileModel() { fileName = "Test.txt", fileByteArray = "MQ==" };
+            var controller = new FileController(_configuration, _logger, _fileOperation);
+            var response = controller.UploadFileBytesJson(jsonFileModel);
             var result = Assert.IsType<ObjectResult>(response.Result);
         }
     }

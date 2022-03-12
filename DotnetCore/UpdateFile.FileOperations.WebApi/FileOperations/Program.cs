@@ -39,10 +39,10 @@ namespace FileOperations
                 {
                     webBuilder.UseStartup<Startup>();
                 })
-                .ConfigureLogging(logging =>
+                .ConfigureLogging(loggingBuilder =>
                 {
-                    logging.ClearProviders();
-                    logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+                    loggingBuilder.ClearProviders();
+                    loggingBuilder.SetMinimumLevel(LogLevel.Trace);
                 })
                 .UseNLog();
     }
