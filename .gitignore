@@ -108,3 +108,8 @@ tempWCF/Entities/obj/tempWCF.Entities.csproj.nuget.g.props
 /DotnetCore/NLogConfig.NLog.WebApi/Logging/obj
 /DotnetCore/NLogConfig.NLog.WebApi/Logging/bin/Debug/netcoreapp3.1
 /DotnetCore/NLogConfig.NLog.WebApi/.vs/Logging
+DotnetCore/Appsettings.NLog.WebApi/Logging/bin/Debug/netcoreapp3.1/appsettings.Development.json
+DotnetCore/Appsettings.NLog.WebApi/Logging/bin/Debug/netcoreapp3.1/appsettings.json
+DotnetCore/Appsettings.NLog.WebApi/Logging/bin/Debug/netcoreapp3.1/Logging.deps.json
+DotnetCore/Appsettings.NLog.WebApi/Logging/bin/Debug/netcoreapp3.1/Logging.runtimeconfig.dev.json
+DotnetCore/Appsettings.NLog.WebApi/Logging/bin/Debug/netcoreapp3.1/Logging.runtimeconfig.json
