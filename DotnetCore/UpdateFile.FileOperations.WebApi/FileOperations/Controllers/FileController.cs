@@ -45,7 +45,7 @@ namespace FileOperations.Controllers
             {
                 _logger.LogInformation($"Received file upload request for {file.FileName}");
 
-                if (Utilities.FileExist($"{_rootFolderPath}\\{file.FileName}"))
+                if (_fileOperation.FileExist($"{_rootFolderPath}\\{file.FileName}"))
                     processResult = BadRequestResult($"File {file.FileName} already exists");
                 else
                 {
@@ -79,7 +79,7 @@ namespace FileOperations.Controllers
             {
                 _logger.LogInformation($"Received file upload request for {fileName}");
 
-                if (Utilities.FileExist($"{_rootFolderPath}\\{fileName}"))
+                if (_fileOperation.FileExist($"{_rootFolderPath}\\{fileName}"))
                     processResult = BadRequestResult($"File {fileName} already exists");
                 else if (byteArray is null)
                     processResult = BadRequestResult("File data is empty");
@@ -112,13 +112,13 @@ namespace FileOperations.Controllers
 
                 if (jsonFileModel.fileName.Contains('.') == false || jsonFileModel.fileName.IndexOfAny(Path.GetInvalidFileNameChars()) > 0)
                     processResult = BadRequestResult("Invalid file name");
-                else if (Utilities.FileExist($"{_rootFolderPath}\\{jsonFileModel.fileName}"))
+                else if (_fileOperation.FileExist($"{_rootFolderPath}\\{jsonFileModel.fileName}"))
                     processResult = BadRequestResult($"File {jsonFileModel.fileName} already exists");
                 else if (string.IsNullOrWhiteSpace(jsonFileModel.fileByteArray))
                     processResult = BadRequestResult("File data is empty");
                 else
                 {
-                    byte[] byteArray = Utilities.DecodeFromBase64String(jsonFileModel.fileByteArray);
+                    byte[] byteArray = _fileOperation.DecodeFromBase64String(jsonFileModel.fileByteArray);
 
                     if (byteArray == null)
                     {

@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Moq;
 using System.IO;
 using FileOperations.Models;
+using System.Threading.Tasks;
 
 namespace FileOperations.Test
 {
@@ -55,7 +56,12 @@ namespace FileOperations.Test
         public void UploadFileBytesJson()
         {
             var jsonFileModel= new JsonFileModel() { fileName = "Test.txt", fileByteArray = "MQ==" };
-            var controller = new FileController(_configuration, _logger, _fileOperation);
+            var fileOperationMock = new Mock<IFileOperation>();
+            fileOperationMock.Setup(x => x.FileExist(It.IsAny<string>()))
+            .Returns(false);
+            fileOperationMock.Setup(x => x.UploadFileByteArray(It.IsAny<string>(), It.IsAny<byte[]>()))
+            .Returns(Task.FromResult(true));
+            var controller = new FileController(_configuration, _logger, fileOperationMock.Object);
             var response = controller.UploadFileBytesJson(jsonFileModel);
             var result = Assert.IsType<ObjectResult>(response.Result);
         }

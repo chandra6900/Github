@@ -17,6 +17,23 @@ namespace FileOperations.Services
             _logger = logger;
         }
 
+        public bool FileExist(string filePath)
+        {
+            return File.Exists(filePath);
+        }
+        public byte[] DecodeFromBase64String(string base64String)
+        {
+            try
+            {
+                return Convert.FromBase64String(base64String);
+            }
+            catch
+            {
+
+            }
+            return null;
+        }
+
         public async Task<bool> UploadFile(string filePath, IFormFile file)
         {
             try
