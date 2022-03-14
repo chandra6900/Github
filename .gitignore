@@ -113,3 +113,7 @@ DotnetCore/Appsettings.NLog.WebApi/Logging/bin/Debug/netcoreapp3.1/appsettings.j
 DotnetCore/Appsettings.NLog.WebApi/Logging/bin/Debug/netcoreapp3.1/Logging.deps.json
 DotnetCore/Appsettings.NLog.WebApi/Logging/bin/Debug/netcoreapp3.1/Logging.runtimeconfig.dev.json
 DotnetCore/Appsettings.NLog.WebApi/Logging/bin/Debug/netcoreapp3.1/Logging.runtimeconfig.json
+/DotnetCore/Practice.EFCore/.vs/EF Core
+/DotnetCore/Practice.EFCore/ConsoleClient.EFCore/obj/Debug/netcoreapp3.1
+/DotnetCore/Practice.EFCore/StackOverflow2010.EFCore/obj/Debug/netcoreapp3.1
+/DotnetCore/Practice.EFCore/StackOverflow2010.EFCore.LinqToSql/obj/Debug/netcoreapp3.1
