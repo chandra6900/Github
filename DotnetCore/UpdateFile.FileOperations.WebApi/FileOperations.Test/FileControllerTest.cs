@@ -57,10 +57,8 @@ namespace FileOperations.Test
         {
             var jsonFileModel= new JsonFileModel() { fileName = "Test.txt", fileByteArray = "MQ==" };
             var fileOperationMock = new Mock<IFileOperation>();
-            fileOperationMock.Setup(x => x.FileExist(It.IsAny<string>()))
-            .Returns(false);
-            fileOperationMock.Setup(x => x.UploadFileByteArray(It.IsAny<string>(), It.IsAny<byte[]>()))
-            .Returns(Task.FromResult(true));
+            fileOperationMock.Setup(x => x.UploadFileByteArray(It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(Task.FromResult("Ok"));
             var controller = new FileController(_configuration, _logger, fileOperationMock.Object);
             var response = controller.UploadFileBytesJson(jsonFileModel);
             var result = Assert.IsType<ObjectResult>(response.Result);

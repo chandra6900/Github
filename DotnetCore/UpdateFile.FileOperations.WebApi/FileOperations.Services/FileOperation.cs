@@ -17,11 +17,7 @@ namespace FileOperations.Services
             _logger = logger;
         }
 
-        public bool FileExist(string filePath)
-        {
-            return File.Exists(filePath);
-        }
-        public byte[] DecodeFromBase64String(string base64String)
+        private byte[] DecodeFromBase64String(string base64String)
         {
             try
             {
@@ -34,7 +30,7 @@ namespace FileOperations.Services
             return null;
         }
 
-        public async Task<bool> UploadFile(string filePath, IFormFile file)
+        public async Task<string> UploadFile(string filePath, IFormFile file)
         {
             try
             {
@@ -47,23 +43,34 @@ namespace FileOperations.Services
             {
                 _logger.LogError($"Error while uploading the file. {ex.Message}");
                 _logger.LogDebug($"Stack Trace: {ex.StackTrace}");
-                return false;
+                return "Error";
             }
-            return true;
+            return "Ok";
         }
 
-        public async Task<bool> UploadFileByteArray(string filePath, byte[] byteArray)
+        public async Task<string> UploadFileByteArray(string filePath, string base64String)
         {
-            try
+            if (File.Exists(filePath) == false)
             {
-                await File.WriteAllBytesAsync(filePath, byteArray);
+                byte[] byteArray = DecodeFromBase64String(base64String);
+                if (byteArray != null)
+                {
+                    try
+                    {
+                        await File.WriteAllBytesAsync(filePath, byteArray);
+                        return "Ok";
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, $"Error while uploading the file. {ex.Message}");
+                        return "Error";
+                    }                   
+                }
+                else
+                    return "BadData";
             }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex,$"Error while uploading the file. {ex.Message}");
-                return false;
-            }
-            return true;
+            else
+                return "FileExists";
         }
     }
 }

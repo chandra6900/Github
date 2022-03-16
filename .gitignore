@@ -117,3 +117,6 @@ DotnetCore/Appsettings.NLog.WebApi/Logging/bin/Debug/netcoreapp3.1/Logging.runti
 /DotnetCore/Practice.EFCore/ConsoleClient.EFCore/obj/Debug/netcoreapp3.1
 /DotnetCore/Practice.EFCore/StackOverflow2010.EFCore/obj/Debug/netcoreapp3.1
 /DotnetCore/Practice.EFCore/StackOverflow2010.EFCore.LinqToSql/obj/Debug/netcoreapp3.1
+/DotnetCore/console/.vs/console
+/DotnetCore/console/console/bin/Debug/netcoreapp3.1
+/DotnetCore/console/console/obj

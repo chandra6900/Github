@@ -44,15 +44,9 @@ namespace FileOperations.Controllers
             else
             {
                 _logger.LogInformation($"Received file upload request for {file.FileName}");
-
-                if (_fileOperation.FileExist($"{_rootFolderPath}\\{file.FileName}"))
-                    processResult = BadRequestResult($"File {file.FileName} already exists");
-                else
-                {
-                    _logger.LogInformation($"File upload started for {file.FileName}");
-                    bool uploaded = await _fileOperation.UploadFile($"{_rootFolderPath}\\{file.FileName}", file);
-                    processResult = ProcessResult(uploaded);
-                }
+                _logger.LogInformation($"File upload started for {file.FileName}");
+                string response = await _fileOperation.UploadFile($"{_rootFolderPath}\\{file.FileName}", file);
+                processResult = ProcessResult(response, file.FileName);
             }
             _logger.LogDebug("UploadFile method call completed");
             return processResult;
@@ -79,15 +73,13 @@ namespace FileOperations.Controllers
             {
                 _logger.LogInformation($"Received file upload request for {fileName}");
 
-                if (_fileOperation.FileExist($"{_rootFolderPath}\\{fileName}"))
-                    processResult = BadRequestResult($"File {fileName} already exists");
-                else if (byteArray is null)
+                if (byteArray is null)
                     processResult = BadRequestResult("File data is empty");
                 else
                 {
                     _logger.LogInformation($"File upload started for {fileName}");
-                    bool uploaded = await _fileOperation.UploadFileByteArray($"{_rootFolderPath}\\{fileName}", byteArray);
-                    processResult = ProcessResult(uploaded);
+                    string response = await _fileOperation.UploadFileByteArray($"{_rootFolderPath}\\{fileName}",Convert.ToBase64String(byteArray));
+                    processResult = ProcessResult(response, fileName);
                 }
             }
             _logger.LogDebug("UploadFileBytes method call completed");
@@ -112,24 +104,13 @@ namespace FileOperations.Controllers
 
                 if (jsonFileModel.fileName.Contains('.') == false || jsonFileModel.fileName.IndexOfAny(Path.GetInvalidFileNameChars()) > 0)
                     processResult = BadRequestResult("Invalid file name");
-                else if (_fileOperation.FileExist($"{_rootFolderPath}\\{jsonFileModel.fileName}"))
-                    processResult = BadRequestResult($"File {jsonFileModel.fileName} already exists");
                 else if (string.IsNullOrWhiteSpace(jsonFileModel.fileByteArray))
                     processResult = BadRequestResult("File data is empty");
                 else
                 {
-                    byte[] byteArray = _fileOperation.DecodeFromBase64String(jsonFileModel.fileByteArray);
-
-                    if (byteArray == null)
-                    {
-                        processResult = BadRequestResult("Bad data received");
-                    }
-                    else
-                    {
                         _logger.LogInformation($"File upload started for {jsonFileModel.fileName}");
-                        bool uploaded = await _fileOperation.UploadFileByteArray($"{_rootFolderPath}\\{jsonFileModel.fileName}", byteArray);
-                        processResult = ProcessResult(uploaded);
-                    }
+                        string response = await _fileOperation.UploadFileByteArray($"{_rootFolderPath}\\{jsonFileModel.fileName}", jsonFileModel.fileByteArray);
+                        processResult = ProcessResult(response, jsonFileModel.fileName);
                 }
             }
 
@@ -137,10 +118,14 @@ namespace FileOperations.Controllers
             return processResult;
         }
 
-        private IActionResult ProcessResult(bool uploaded)
+        private IActionResult ProcessResult(string response,string fileName)
         {
-            if (uploaded)
+            if (response=="Ok")
                 return OkResult("File upload completed");
+            else if(response=="FileExists")
+                return BadRequestResult($"File {fileName} already exists"); 
+            else if (response == "BadData")
+                return BadRequestResult("Bad data received");
             else
                 return ErrorResult("Internal Server Error");
         }
