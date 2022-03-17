@@ -120,3 +120,17 @@ DotnetCore/Appsettings.NLog.WebApi/Logging/bin/Debug/netcoreapp3.1/Logging.runti
 /DotnetCore/console/.vs/console
 /DotnetCore/console/console/bin/Debug/netcoreapp3.1
 /DotnetCore/console/console/obj
+/DotnetCore/Practice.EFCore/ConsoleClient.EFCore/obj
+/DotnetCore/Practice.EFCore/StackOverflow2010.EFCore/obj
+/DotnetCore/Practice.EFCore/StackOverflow2010.EFCore.LinqToSql/obj
+/Dotnet/FileOperations/.vs/FileOperations
+/Dotnet/FileOperations/FileOperations/bin
+/Dotnet/FileOperations.WebApi/.vs/FileOperations
+/Dotnet/FileOperations.WebApi/FileOperations/bin
+/Dotnet/FileOperations.WebApi/FileOperations/obj/Debug
+*.user
+/Dotnet/FileOperations.WebApi/FileOperations.Services/bin/Debug
+/Dotnet/FileOperations.WebApi/FileOperations.Services/obj/Debug
+/Dotnet/FileOperations.WebApi/FileOperations.Tests/bin/Debug
+/Dotnet/FileOperations.WebApi/FileOperations.Tests/obj/Debug
+/Dotnet/FileOperations.WebApi/packages
