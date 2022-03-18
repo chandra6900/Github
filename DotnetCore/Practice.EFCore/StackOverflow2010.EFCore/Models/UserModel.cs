@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace StackOverflow2010.EFCore.Models
+namespace Practice.EFCore.Models
 {
     public partial class UserModel
     {

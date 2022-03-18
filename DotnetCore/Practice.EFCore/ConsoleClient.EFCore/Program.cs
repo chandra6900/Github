@@ -1,5 +1,5 @@
 ﻿using System;
-using StackOverflow2010.EFCore.LinqToSql;
+using Practice.EFCore.LinqToSql;
  
 namespace EFCoreClient
 {

@@ -139,3 +139,7 @@ DotnetCore/Appsettings.NLog.WebApi/Logging/bin/Debug/netcoreapp3.1/Logging.runti
 /Dotnet/FileOperations.WebApi/FileOperations.Services/bin/Release
 /Dotnet/FileOperations.WebApi/FileOperations.Services/obj/Release
 /Dotnet/FileOperations.WebApi/FileOperations.Tests/obj/Release
+/DotnetCore/Basic.EFCore/.vs/EF Core/v17
+/DotnetCore/Basic.EFCore/ConsoleClient.EFCore/obj/Debug/netcoreapp3.1
+/DotnetCore/Basic.EFCore/StackOverflow2010.EFCore/obj/Debug/netcoreapp3.1
+/DotnetCore/Basic.EFCore/StackOverflow2010.EFCore.LinqToSql/obj/Debug/netcoreapp3.1

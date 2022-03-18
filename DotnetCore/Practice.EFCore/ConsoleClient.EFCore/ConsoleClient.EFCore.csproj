@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StackOverflow2010.EFCore.LinqToSql\StackOverflow2010.EFCore.LinqToSql.csproj" />
+    <ProjectReference Include="..\Practice.EFCore.LinqToSql\Practice.EFCore.LinqToSql.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,9 +1,9 @@
-﻿using StackOverflow2010.EFCore;
+﻿using Practice.EFCore;
 using System.Collections.Generic;
-using StackOverflow2010.EFCore.Models;
+using Practice.EFCore.Models;
 using System.Linq;
 
-namespace StackOverflow2010.EFCore.LinqToSql
+namespace Practice.EFCore.LinqToSql
 {
     public class Data
     {
