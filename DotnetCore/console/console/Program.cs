@@ -11,10 +11,15 @@ namespace console
     {
         static async void Main(string[] args)
         {
+            await CallFileUpload();
+            Console.WriteLine("Hello World!");
+        }
+
+        private static async Task CallFileUpload()
+        {
             string filePath = @"C:\Users\Office\Downloads\veggblcb_2.zip";
             string url = @"https://localhost:5001/File/UploadFileBytesJson";
-            string result= await UploadFileBytes(filePath, url,false);
-            Console.WriteLine("Hello World!");
+            string result = await UploadFileBytes(filePath, url, false);
         }
 
         private static async Task<string> UploadFileBytes(string filePath, string url,bool createJson)
