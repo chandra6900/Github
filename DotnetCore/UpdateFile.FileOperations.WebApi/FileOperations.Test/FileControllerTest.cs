@@ -1,11 +1,9 @@
-using System;
 using Xunit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using FileOperations.Services;
 using Microsoft.Extensions.Hosting;
-using FileOperations.Common;
 using Microsoft.Extensions.DependencyInjection;
 using FileOperations.Controllers;
 using Microsoft.AspNetCore.Mvc;

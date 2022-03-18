@@ -1,7 +1,6 @@
 ﻿using FileOperations.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -12,7 +11,6 @@ using System.Net.Http;
 using System;
 using FileOperations.Models;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace FileOperations.Controllers
 {
