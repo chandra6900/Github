@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Practice.EFCore.Models.Configuration
+namespace EFCore.Models.Configuration
 {
     public partial class UserConfiguration : IEntityTypeConfiguration<UserModel>
     {

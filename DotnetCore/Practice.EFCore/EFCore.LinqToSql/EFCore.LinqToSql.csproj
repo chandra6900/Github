@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Practice.EFCore\Practice.EFCore.csproj" />
+    <ProjectReference Include="..\EFCore\EFCore.csproj" />
   </ItemGroup>
 
 </Project>

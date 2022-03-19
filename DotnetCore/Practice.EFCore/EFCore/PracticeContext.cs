@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Practice.EFCore.Models;
+using EFCore.Models;
 
-namespace Practice.EFCore
+namespace EFCore
 {
     public partial class PracticeContext : DbContext
     {

@@ -1,8 +1,8 @@
-﻿using Practice.EFCore;
-using Practice.EFCore.Models;
+﻿using EFCore;
+using EFCore.Models;
 using System.Linq;
 
-namespace Practice.EFCore.LinqToSql
+namespace EFCore.LinqToSql
 {
     public class Queries
     {

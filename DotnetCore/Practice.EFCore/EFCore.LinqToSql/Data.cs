@@ -1,9 +1,9 @@
-﻿using Practice.EFCore;
+﻿using EFCore;
 using System.Collections.Generic;
-using Practice.EFCore.Models;
+using EFCore.Models;
 using System.Linq;
 
-namespace Practice.EFCore.LinqToSql
+namespace EFCore.LinqToSql
 {
     public class Data
     {
