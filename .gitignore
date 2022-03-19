@@ -152,3 +152,8 @@ DotnetCore/Appsettings.NLog.WebApi/Logging/bin/Debug/netcoreapp3.1/Logging.runti
 /DotnetCore/StackOverflow2010.EFCore/ConsoleClient.EFCore/obj
 /DotnetCore/StackOverflow2010.EFCore/StackOverflow2010.EFCore/obj
 /DotnetCore/StackOverflow2010.EFCore/StackOverflow2010.EFCore.LinqToSql/obj
+/DotnetCore/Basic.EFCore/EFCore/obj
+/DotnetCore/Basic.EFCore/.vs/EF Core
+/DotnetCore/Basic.EFCore/EFCore.ConsoleClient/obj
+/DotnetCore/Basic.EFCore/EFCore.LinqToSql/obj
+/DotnetCore/Basic.EFCore/EFCore/bin/Debug/netcoreapp3.1
