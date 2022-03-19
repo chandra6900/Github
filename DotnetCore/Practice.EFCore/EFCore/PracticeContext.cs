@@ -5,13 +5,13 @@ using EFCore.Models;
 
 namespace EFCore
 {
-    public partial class EFCoreContext : DbContext
+    public partial class EFCoreDBContext : DbContext
     {
-        public EFCoreContext()
+        public EFCoreDBContext()
         {
         }
 
-        public EFCoreContext(DbContextOptions<EFCoreContext> options)
+        public EFCoreDBContext(DbContextOptions<EFCoreDBContext> options)
             : base(options)
         {
         }
