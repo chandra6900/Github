@@ -160,3 +160,6 @@ DotnetCore/Appsettings.NLog.WebApi/Logging/bin/Debug/netcoreapp3.1/Logging.runti
 /DotnetCore/Practice.EFCore/EFCore/obj
 /DotnetCore/Practice.EFCore/EFCore.ConsoleClient/obj
 /DotnetCore/Practice.EFCore/EFCore.LinqToSql/obj
+/DotnetCore/Practice.EFCore/EFCore/bin/Debug/netcoreapp3.1
+/DotnetCore/Practice.EFCore/EFCore.ConsoleClient/bin/Debug/netcoreapp3.1
+/DotnetCore/Practice.EFCore/EFCore.LinqToSql/bin/Debug/netcoreapp3.1
