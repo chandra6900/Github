@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EFCore.Models.Configuration
 {
-    public partial class StatusModelConfiguration : IEntityTypeConfiguration<StatusModel>
+    public partial class StatusModelConfiguration : IEntityTypeConfiguration<FileStatusModel>
     {
-        public void Configure(EntityTypeBuilder<StatusModel> builder)
+        public void Configure(EntityTypeBuilder<FileStatusModel> builder)
         {
             builder.Property(e => e.CreationDate).HasColumnType("datetime");
 

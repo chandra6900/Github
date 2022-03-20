@@ -16,7 +16,7 @@ namespace EFCore
         {
         }
 
-        public virtual DbSet<StatusModel> Users { get; set; }
+        public virtual DbSet<FileStatusModel> FileStatuses { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -24,7 +24,7 @@ namespace EFCore
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=Practice;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=TestDB;Trusted_Connection=True;");
             }
         }
 

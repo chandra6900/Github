@@ -11,18 +11,18 @@ namespace EFCore.LinqToSql
         {
             _EFCoreDBContext = new EFCoreDBContext();
         }
-        public IQueryable<StatusModel> GetUsers(bool isQuerySyntax = true)
+        public IQueryable<FileStatusModel> GetFileStatuses(bool isQuerySyntax = true)
         {
             if (isQuerySyntax)
             {
                 //Linq Query Expression Syntax
-                var query = from u in _EFCoreDBContext.Users select u ;
+                var query = from u in _EFCoreDBContext.FileStatuses select u ;
                 return query;
             }
             else
             {
                 // Linq Method Extension Syntax or Fluent
-                var query = _EFCoreDBContext.Users.Select(u => u);
+                var query = _EFCoreDBContext.FileStatuses.Select(u => u);
                 return query;
             }
         }

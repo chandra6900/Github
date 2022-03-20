@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace EFCore.Models
 {
-    public partial class StatusModel
+    public partial class FileStatusModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
