@@ -16,7 +16,7 @@ namespace EFCore
         {
         }
 
-        public virtual DbSet<UserModel> Users { get; set; }
+        public virtual DbSet<StatusModel> Users { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

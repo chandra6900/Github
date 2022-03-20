@@ -21,9 +21,9 @@ namespace EFCoreClient
         public void invoke()
         {
             
-           var userList= _data.GetUserByDisplayName("ab");
-            foreach (var user in userList)
-                Console.WriteLine(user.DisplayName,user.Location, user.WebsiteUrl);
+           var statusList= _data.GetStausByName("ab");
+            foreach (var status in statusList)
+                Console.WriteLine(status.Name, status.Status, status.Path);
         }
     }
 }

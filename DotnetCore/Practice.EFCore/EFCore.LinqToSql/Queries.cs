@@ -11,7 +11,7 @@ namespace EFCore.LinqToSql
         {
             _EFCoreDBContext = new EFCoreDBContext();
         }
-        public IQueryable<UserModel> GetUsers(bool isQuerySyntax = true)
+        public IQueryable<StatusModel> GetUsers(bool isQuerySyntax = true)
         {
             if (isQuerySyntax)
             {
