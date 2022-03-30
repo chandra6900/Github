@@ -21,7 +21,7 @@ namespace EFCoreClient
         public void invoke()
         {
             
-           var statusList= _data.GetStausByName("ab");
+           var statusList= _data.GetStausByName("Test.txt");
             foreach (var status in statusList)
                 Console.WriteLine(status.Name, status.Status, status.Path);
         }
