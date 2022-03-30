@@ -8,11 +8,11 @@ namespace console
     {
         static void Main(string[] args)
         {
-            WriteBytes(20, "mb");
+            CreateCustomSizeFile(20, "mb");
             Console.WriteLine("Hello World!");
         }
 
-        static void WriteBytes(int size, string type,bool random=false)
+        static void CreateCustomSizeFile(int size, string type,bool random=false)
         {
             string allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             Random rnd = new Random();
