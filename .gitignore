@@ -164,3 +164,4 @@ DotnetCore/Appsettings.NLog.WebApi/Logging/bin/Debug/netcoreapp3.1/Logging.runti
 /DotnetCore/Practice.EFCore/EFCore.ConsoleClient/bin/Debug/netcoreapp3.1
 /DotnetCore/Practice.EFCore/EFCore.LinqToSql/bin/Debug/netcoreapp3.1
 /DotnetCore/CustomSizeFile.Console/console/console/obj
+/DotnetCore/CustomSizeFile.Console/console/console/bin/Debug/netcoreapp3.1

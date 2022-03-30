@@ -11,9 +11,11 @@ namespace console
             WriteBytes(20, "mb");
             Console.WriteLine("Hello World!");
         }
-        static void WriteBytes(int size, string type)
+
+        static void WriteBytes(int size, string type,bool random=false)
         {
             string allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            Random rnd = new Random();
             string filePath = @"C:\\Temp\TestFile.txt";
             int count = 0;
             StringBuilder sb = new StringBuilder();
@@ -39,7 +41,13 @@ namespace console
 
             for (int i = 0; i <= count; i++)
             {
-                sb.Append("A");
+                if (random)
+                {
+                    int r = rnd.Next(0,allowedChars.Length);
+                    sb.Append(allowedChars[r]);
+                }
+                else
+                    sb.Append('A');
             }
             if (File.Exists(filePath))
                 File.Delete(filePath);
