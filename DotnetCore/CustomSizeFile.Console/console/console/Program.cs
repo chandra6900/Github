@@ -16,7 +16,7 @@ namespace console
         {
             string allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             Random rnd = new Random();
-            string filePath = @"C:\\Temp\TestFile.txt";
+            string filePath = @"C:\\Temp\TestFiles\TestFile.txt";
             int count = 0;
             StringBuilder sb = new StringBuilder();
 
