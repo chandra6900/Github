@@ -34,7 +34,7 @@ namespace console
                 string fileJson = JsonSerializer.Serialize<JsonFileModel>(fileJsonModel);
                 if (createJson)
                 {
-                    await File.WriteAllTextAsync(@"C:\\Temp\FileJson.txt", fileJson);
+                    await File.WriteAllTextAsync(@"C:\\Temp\TestFiles\FileJson.txt", fileJson);
                     return "Done";
                 }
                 else
