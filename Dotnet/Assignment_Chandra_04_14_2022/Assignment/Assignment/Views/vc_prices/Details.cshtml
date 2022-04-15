@@ -1,0 +1,50 @@
+﻿@model Assignment.Models.vc_prices
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>vc_prices</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.pricedate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pricedate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.delivdat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.delivdat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.surrogate }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -18,7 +18,7 @@ namespace console
         private static async Task CallFileUpload()
         {
             string filePath = @"C:\Temp\TestFiles\TestFile.txt";
-            string url = @"https://localhost:44393/File/UploadFileBytesJson";
+            string url = @"https://localhost:5005/File/UploadFileBytesJson";
             string result = await UploadFileBytes(filePath, url, false);
         }
 
